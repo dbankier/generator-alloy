@@ -1,0 +1,3 @@
+[submodule "app/templates/jalt"]
+	path = app/templates/jalt
+	url = https://github.com/dbankier/JALT
