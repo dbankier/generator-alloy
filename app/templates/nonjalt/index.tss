@@ -1,0 +1,16 @@
+".container": {
+	backgroundColor: 'white'
+},
+"Label": {
+  top: "80dp",
+  bottom: "80dp",
+  left: "80dp",
+  right: "80dp",
+	color: 'white',
+  font: {
+    fontSize: '33dp',
+    fontWeight: 'bold'
+  },
+  backgroundColor: 'blue',
+  textAlign: 'center'
+}

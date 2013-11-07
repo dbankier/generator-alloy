@@ -1,6 +1,6 @@
 {
   "name": "generator-jalt",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A JALT generator for Yeoman",
   "keywords": [
     "yeoman-generator"
@@ -21,7 +21,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.13.0"
+    "yeoman-generator": "~0.13.0",
+    "underscore": "~1.5.2"
   },
   "devDependencies": {
     "mocha": "~1.12.0"
