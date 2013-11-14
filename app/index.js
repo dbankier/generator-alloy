@@ -55,7 +55,7 @@ JaltGenerator.prototype.askFor = function askFor() {
     this.coffee = props.coffee;
     this.jade = props.jade;
     this.ltss = props.ltss;
-    this.trackFiles = [];
+    this.trackFiles = ['i18n/**'];
     this.builds = [];
     this.cleanFiles =['Resources/', 'build/'] 
     this.appGuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);}); // GUID one-liner: http://stackoverflow.com/a/2117523
