@@ -1,12 +1,12 @@
 {
-  "name": "generator-jalt",
+  "name": "generator-alloy",
   "version": "0.2.3",
-  "description": "A JALT generator for Yeoman",
+  "description": "An alloy generator for Yeoman",
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/dbankier/generator-jalt",
-  "bugs": "https://github.com/dbankier/generator-jalt/issues",
+  "homepage": "https://github.com/dbankier/generator-alloy",
+  "bugs": "https://github.com/dbankier/generator-alloy/issues",
   "author": {
     "name": "David Bankier",
     "email": "@davidbankier",
@@ -15,7 +15,7 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dbankier/generator-jalt.git"
+    "url": "git://github.com/dbankier/generator-alloy.git"
   },
   "scripts": {
     "test": "mocha"

@@ -1,6 +1,7 @@
-# generator-jalt [![Build Status](https://secure.travis-ci.org/dbankier/generator-jalt.png?branch=master)](https://travis-ci.org/dbankier/generator-jalt)
+# generator-alloy [![Build Status](https://secure.travis-ci.org/dbankier/generator-alloy.png?branch=master)](https://travis-ci.org/dbankier/generator-alloy)
 
-A [JALT stack](https://github.com/dbankier/JALT) generator for [Yeoman](http://yeoman.io).
+An [alloy](http://projects.appcelerator.com/alloy/docs/Alloy-bootstrap/index.html) 
+ generator for [Yeoman](http://yeoman.io) based on the [JAST stack](https://github.com/dbankier/JAST) but configurable.
 
 
 
@@ -19,22 +20,22 @@ $ npm install -g yo
 ### JALT Generators
 
 
-To install generator-jalt from npm, run:
+To install generator-alloy from npm, run:
 
 ```
-$ npm install -g generator-jalt
+$ npm install -g generator-alloy
 ```
 
 Finally, initiate the generator:
 
 ```
-$ yo jalt
+$ yo alloy
 ```
 
-The generator gives you more options than jalt
+The generator gives you more options than JAST:
 
 ```
-$ yo jalt
+$ yo alloy
 
      _-----_
     |       |
@@ -49,7 +50,10 @@ $ yo jalt
 [?] Enter the application name: Test App
 [?] Enter the application id: yy.test
 [?] Would you like to include Jade for views? Yes
-[?] Would you like to include ltss for styles? Yes
+[?] Which style engine would you like? (Use arrow keys)
+❯ stss
+  ltss
+  tss
 [?] Would you like to include coffeescript for controllers? (y/N)
 ```
 

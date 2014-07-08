@@ -36,6 +36,17 @@ module.exports = function(grunt) {
         }]
       }
     },
+    stss: {
+      compile: {
+        files: [{
+          expand: true,
+          src: ['**/*.stss','!**/_*.stss'],
+          dest: 'app',
+          cwd: 'app',
+          ext: '.tss'
+        }],
+      }
+    },
     tishadow: {
       options: {
         update: true,
@@ -162,6 +173,20 @@ module.exports = function(grunt) {
     if (filepath.match(/.jade$/) && filepath.indexOf("includes") === -1) {
       o[filepath.replace(".jade",".xml")] = [filepath];
       grunt.config.set(['jade', 'compile', 'files'],o);
+    } else if (filepath.match(/.stss$/) && filepath.indexOf("includes") === -1){
+      if (filepath.match(/\/_.*?\.stss/)) { // if it is partial then recompile all stss
+        grunt.log.write("Partial modified, rewriting all styles");
+        grunt.config.set(['stss', 'compile', 'files'],[{
+          expand: true,
+          src: ['**/*.stss','!**/_*.stss'],
+          dest: 'app',
+          cwd: 'app',
+          ext: '.tss'
+        }]);
+      } else {
+        o[filepath.replace(".stss",".tss")] = [filepath];
+        grunt.config.set(['stss', 'compile', 'files'],o);
+      }
     } else if (filepath.match(/.ltss$/) && filepath.indexOf("includes") === -1){
       o[filepath.replace(".ltss",".tss")] = [filepath];
       grunt.config.set(['ltss', 'compile', 'files'],o);

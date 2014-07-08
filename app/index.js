@@ -38,10 +38,10 @@ JaltGenerator.prototype.askFor = function askFor() {
     message: 'Would you like to include Jade for views?',
     default: true
   },{
-    type: 'confirm',
-    name: 'ltss',
-    message: 'Would you like to include ltss for styles?',
-    default: true
+    type: 'list',
+    name: 'style',
+    message: 'Which style engine would you like?',
+    choices: ['stss', 'ltss', 'tss']
   },{
     type: 'confirm',
     name: 'coffee',
@@ -54,7 +54,7 @@ JaltGenerator.prototype.askFor = function askFor() {
     this.appName = props.appName;
     this.coffee = props.coffee;
     this.jade = props.jade;
-    this.ltss = props.ltss;
+    this.style = props.style;
     this.trackFiles = ['i18n/**'];
     this.builds = [];
     this.cleanFiles =['Resources/', 'build/'] 
@@ -65,52 +65,59 @@ JaltGenerator.prototype.askFor = function askFor() {
 
 JaltGenerator.prototype.app = function app() {
   var pkg = require("./templates/_package.json")
-  this.copy("./jalt/manifest","./manifest")
-  this.copy("./jalt/README.md","./README.md")
-  this.copy("./jalt/app/config.json","./app/config.json")
-  this.copy("./jalt/app/README","./app/README")
+  this.copy("./jast/manifest","./manifest")
+  this.copy("./jast/README.md","./README.md")
+  this.copy("./jast/app/config.json","./app/config.json")
+  this.copy("./jast/app/README","./app/README")
   this.mkdir("./app")
   this.mkdir("./spec")
 
-// ['app/views/**/*.xml', 'app/styles/**/*.tss', 'Resources/', 'build/']
   if (this.jade) {
-    this.directory("./jalt/app/views","./app/views");
+    this.directory("./jast/app/views","./app/views");
     this.cleanFiles.push('app/views/**/*.xml');
     this.trackFiles.push('app/**/*.jade');
     this.builds.push('jade');
   } else {
     this.mkdir("./app/views");
-    this.copy("./nonjalt/index.xml", "./app/views/index.xml")
+    this.copy("./nonjast/index.xml", "./app/views/index.xml")
     delete pkg.devDependencies["grunt-contrib-jade"];
     this.trackFiles.push('app/**/*.xml');
   }
-  if (this.ltss) {
-    this.directory("./jalt/app/styles","./app/styles");
+  if (this.style === "stss") { // stss
+    this.directory("./jast/app/styles","./app/styles");
     this.cleanFiles.push('app/styles/**/*.tss');
+    this.trackFiles.push('app/**/*.stss');
+    this.builds.push('stss');
+  } else if (this.style === "ltss") { //ltss
+    this.cleanFiles.push('app/styles/**/*.tss');
+    this.copy("./nonjast/index.ltss", "./app/styles/index.ltss")
+    this.copy("./nonjast/bootstrap.ltss", "./app/styles/includes/bootstrap.ltss")
     this.trackFiles.push('app/**/*.ltss');
+    delete pkg.devDependencies["grunt-stss"];
+    pkg.devDependencies["grunt-ltss"] = "~0.1.2";
     this.builds.push('ltss');
   } else {
     this.mkdir("./app/styles");
-    this.copy("./nonjalt/index.tss", "./app/styles/index.tss")
-    delete pkg.devDependencies["grunt-ltss"];
+    this.copy("./nonjast/index.tss", "./app/styles/index.tss")
+    delete pkg.devDependencies["grunt-stss"];
     this.trackFiles.push('app/**/*.tss');
   }
   if (!this.coffee) {
-    this.directory("./jalt/app/controllers","./app/controllers");
-    this.copy("./jalt/app/alloy.js","./app/alloy.js")
+    this.directory("./jast/app/controllers","./app/controllers");
+    this.copy("./jast/app/alloy.js","./app/alloy.js")
     this.trackFiles.push('app/**/*.js');
   } else {
     this.mkdir("./app/controllers");
-    this.copy("./nonjalt/alloy.coffee","./app/alloy.coffee")
-    this.copy("./nonjalt/basic_spec.coffee","./spec/basic_spec.coffee")
-    this.copy("./nonjalt/index.coffee","./app/controllers/index.coffee")
+    this.copy("./nonjast/alloy.coffee","./app/alloy.coffee")
+    this.copy("./nonjast/basic_spec.coffee","./spec/basic_spec.coffee")
+    this.copy("./nonjast/index.coffee","./app/controllers/index.coffee")
     pkg.devDependencies["grunt-contrib-coffee"] = "~0.7.0";
     this.cleanFiles.push('app/controllers/**/*.js');
     this.trackFiles.push('app/**/*.coffee');
     this.builds.push('coffee');
   }
-  this.directory("./jalt/app/assets","./app/assets");
-  this.directory("./jalt/plugins","./plugins");
+  this.directory("./jast/app/assets","./app/assets");
+  this.directory("./jast/plugins","./plugins");
 
   this.write("package.json",_.template(JSON.stringify(pkg, null, "  "))(this));
   this.copy("_tiapp.xml","tiapp.xml");
